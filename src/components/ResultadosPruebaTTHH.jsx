@@ -119,7 +119,7 @@ export default function ResultadosPruebaTTHH() {
     doc.setFillColor(dorado);
     doc.circle(W * 0.08, H * 0.10, W * 0.07, "F");
 
-    doc.addImage(logoBase64, "PNG", W - 85, 5, 75, 25);
+    doc.addImage(logoBase64, "PNG", W - 85, 5, 75, 35);
     doc.setFont("garamond", "bold");
     doc.setFontSize(70);
     doc.setTextColor("#d4af37");
@@ -161,8 +161,8 @@ export default function ResultadosPruebaTTHH() {
 
     doc.addImage(firmaBase64, "PNG", W / 2 + 10, H - 58, 65, 32);
     doc.setFont("times", "italic");
-    doc.text("Abg. Mario Aguinaga", W / 2 + 40, H - 15, { align: "center" });
-    doc.text("REPRESENTANTE LEGAL", W / 2 + 40, H - 7, { align: "center" });
+    doc.text("María de Lourdes Sánchez Campos", W / 2 + 40, H - 15, { align: "center" });
+    doc.text("GERENTE ADMINISTRATIVA", W / 2 + 40, H - 7, { align: "center" });
 
     return doc;
   };
