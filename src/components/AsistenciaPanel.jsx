@@ -163,7 +163,7 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
 
     // Nombre del admin desde localStorage
     const adminUser   = JSON.parse(localStorage.getItem('admin_proceso_user') || '{}');
-    const responsable = 'Mario Aguinaga';
+    const responsable = 'María de Lourdes Sánchez Campos';
 
     
 
@@ -215,8 +215,8 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     // Imagen de la izquierda
     const fotoX = mL + 5;
     const fotoY = y + 5;
-    const ancho = 40
-    const alto = 12
+    const ancho = 50
+    const alto = 25
 
     if (logoDataUrl) {
       doc.addImage(logoDataUrl, 'PNG', fotoX, fotoY, ancho, alto);
@@ -379,11 +379,12 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     dibujarCuadro(x1, yCuadros, ancho1, cuadroAlto, 'PLATAFORMA VIRTUAL', '');
 
     // Obtener el proceso del usuario actual para mostrar en el cuadro del medio
-    const nombreProceso = adminUser.proceso_name || 'PROCESO';
+    //const nombreProceso = adminUser.proceso_name || 'PROCESO';
+    const nombreProceso = 'Gerente Administrativa';
 
     dibujarCuadro(x2, yCuadros, ancho2, cuadroAlto, nombreProceso, 'PROCESO RESPONSABLE');
 
-    dibujarCuadro(x3 , yCuadros, ancho3, cuadroAlto, '', 'REPRESENTANTE LEGAL');
+    dibujarCuadro(x3 , yCuadros, ancho3, cuadroAlto, '', 'GERENTE ADMINISTRATIVA');
     if (firmaDataUrl) {
       doc.addImage(firmaDataUrl, 'PNG', x3 + ((ancho3 - 35) / 2), yCuadros - 2, 35, 15);
     }
@@ -453,7 +454,7 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
 
     // Nombre del admin desde localStorage
     const adminUser   = JSON.parse(localStorage.getItem('admin_proceso_user') || '{}');
-    const responsable = 'Mario Aguinaga';
+    const responsable = 'María de Lourdes Sánchez Campos';
 
     // FECHA FIJA 2026
     const fechaInicioCurso2026 = '28/10/2026';
@@ -503,8 +504,8 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     // Imagen de la izquierda
     const fotoX = mL + 5;
     const fotoY = y + 5;
-    const ancho = 40
-    const alto = 12
+    const ancho = 50
+    const alto = 25
 
     if (logoDataUrl) {
       doc.addImage(logoDataUrl, 'PNG', fotoX, fotoY, ancho, alto);
@@ -668,11 +669,12 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     dibujarCuadro(x1, yCuadros, ancho1, cuadroAlto, 'PLATAFORMA VIRTUAL', '');
 
     // Obtener el proceso del usuario actual para mostrar en el cuadro del medio
-    const nombreProceso = adminUser.proceso_name || 'PROCESO';
+    //const nombreProceso = adminUser.proceso_name || 'PROCESO';
+    const nombreProceso = 'Gerencia';
 
     dibujarCuadro(x2, yCuadros, ancho2, cuadroAlto, nombreProceso, 'PROCESO RESPONSABLE');
 
-    dibujarCuadro(x3 , yCuadros, ancho3, cuadroAlto, '', 'REPRESENTANTE LEGAL');
+    dibujarCuadro(x3 , yCuadros, ancho3, cuadroAlto, '', 'GERENTE ADMINISTRATIVA');
     if (firmaDataUrl) {
       doc.addImage(firmaDataUrl, 'PNG', x3 + ((ancho3 - 35) / 2), yCuadros - 2, 35, 15);
     }
