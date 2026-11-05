@@ -267,8 +267,8 @@ export default function ResultadosPruebaTTHH() {
 
       docFinal.addImage(firmaBase64, "PNG", W / 2 + 10, H - 58, 65, 32);
       docFinal.setFont("times", "italic");
-      docFinal.text("Abg. Mario Aguinaga", W / 2 + 40, H - 15, { align: "center" });
-      docFinal.text("REPRESENTANTE LEGAL", W / 2 + 40, H - 7, { align: "center" });
+      docFinal.text("María de Lourdes Sánchez Campos", W / 2 + 40, H - 15, { align: "center" });
+      docFinal.text("GERENTE ADMINISTRATIVA", W / 2 + 40, H - 7, { align: "center" });
     }
 
     docFinal.save(`Certificados_Todos_Octubre2026_${new Date().toISOString().split("T")[0]}.pdf`);
@@ -368,8 +368,8 @@ export default function ResultadosPruebaTTHH() {
 
       docFinal.addImage(firmaBase64, "PNG", W / 2 + 10, H - 58, 65, 32);
       docFinal.setFont("times", "italic");
-      docFinal.text("Abg. Mario Aguinaga", W / 2 + 40, H - 15, { align: "center" });
-      docFinal.text("REPRESENTANTE LEGAL", W / 2 + 40, H - 7, { align: "center" });
+      docFinal.text("María de Lourdes Sánchez Campos", W / 2 + 40, H - 15, { align: "center" });
+      docFinal.text("GERENTE ADMINISTRATIVA", W / 2 + 40, H - 7, { align: "center" });
     }
 
     docFinal.save(`Certificados_Todos_Octubre2025_${new Date().toISOString().split("T")[0]}.pdf`);
