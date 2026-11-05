@@ -219,7 +219,7 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     const alto = 25
 
     if (logoDataUrl) {
-      doc.addImage(logoDataUrl, 'PNG', fotoX, fotoY, ancho, alto);
+      doc.addImage(logoDataUrl, 'PNG', fotoX, fotoY-5, ancho, alto);
     }
 
     const tituloX = fotoX + ancho + 15;
@@ -380,7 +380,7 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
 
     // Obtener el proceso del usuario actual para mostrar en el cuadro del medio
     //const nombreProceso = adminUser.proceso_name || 'PROCESO';
-    const nombreProceso = 'Gerente Administrativa';
+    const nombreProceso = 'Gerencia';
 
     dibujarCuadro(x2, yCuadros, ancho2, cuadroAlto, nombreProceso, 'PROCESO RESPONSABLE');
 
