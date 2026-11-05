@@ -215,8 +215,8 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     // Imagen de la izquierda
     const fotoX = mL + 5;
     const fotoY = y + 5;
-    const ancho = 50
-    const alto = 25
+    const ancho = 60
+    const alto = 45
 
     if (logoDataUrl) {
       doc.addImage(logoDataUrl, 'PNG', fotoX, fotoY-5, ancho, alto);
