@@ -168,7 +168,7 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     
 
     // FECHA FIJA 2025
-    const fechaInicioCurso = '18/08/2025';
+    const fechaInicioCurso = '25/07/2025';
 
     const doc   = new jsPDF('portrait', 'mm', 'a4');
     const pageW = doc.internal.pageSize.getWidth();   // 210mm
@@ -404,6 +404,18 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     doc.save(nombreArchivo);
   };
 
+  // ── Personas excluidas del PDF 2026 ───────────────────────────
+  const personasExcluidas2026 = [
+    { nombre: 'Tituaña Yacelga Byron Alejandro', cedula: '1724487754' }
+  ];
+
+  const estaExcluido = (registro) => {
+    return personasExcluidas2026.some(p => 
+      p.cedula === registro.cedula_identidad || 
+      p.nombre.toLowerCase() === registro.usuario_nombre.toLowerCase()
+    );
+  };
+
   // ── Exportar a PDF ────────────────────────────────────────────
   const exportarPDF = async () => {
     if (!pdfActivo) return;
@@ -581,9 +593,10 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     celda(mL + etqW, y, valW, descH, descripcionCurso);
     y += descH + 2;
 
-    // ── Tabla de asistencia ────────────────────────────────────
+    // ── Tabla de asistencia (EXCLUIR PERSONAS 2026) ────────────
     const headers = ['N°', 'APELLIDOS Y NOMBRES', 'CÉDULA', 'CARGO', 'ESTADO / FIRMA'];
-    const rows = registrosFiltrados.map((r, idx) => [
+    const registrosFiltradosPDF2026 = registrosFiltrados.filter(r => !estaExcluido(r));
+    const rows = registrosFiltradosPDF2026.map((r, idx) => [
       idx + 1,
       r.usuario_nombre,
       r.cedula_identidad || '—',

@@ -50,9 +50,9 @@ export default function ResultadosPruebaTTHH() {
     return true;
   });
 
-  // EXPORTAR EXCEL con aprobados
+  // EXPORTAR EXCEL con aprobados (EXCLUIR PERSONAS 2026)
   const exportarExcel = () => {
-    const aprobados = datos.filter((r) => r.aprobado);
+    const aprobados = datos.filter((r) => r.aprobado && !estaExcluidoDe2026(r));
     const filas = aprobados.map((r) => ({
       "Nombre / Cédula": r.nombre_completo,
       "Cédula": r.cedula,
@@ -80,8 +80,26 @@ export default function ResultadosPruebaTTHH() {
     saveAs(blob, `Aprobados_Prueba_TalentoHumano_${new Date().toISOString().split("T")[0]}.xlsx`);
   };
 
+  // ── Personas excluidas del certificado 2026 ────────────────────
+  const personasExcluidas2026 = [
+    { nombre: 'Tituaña Yacelga Byron Alejandro', cedula: '1724487754' }
+  ];
+
+  const estaExcluidoDe2026 = (persona) => {
+    return personasExcluidas2026.some(p => 
+      p.cedula === persona.cedula || 
+      p.nombre.toLowerCase() === persona.nombre_completo.toLowerCase()
+    );
+  };
+
   // GENERAR CERTIFICADO PDF individual (función reutilizable con fecha personalizada)
   const generarCertificadoConFecha = async (persona, fecha = "Octubre 2026") => {
+    // Validar si el usuario está excluido del certificado 2026
+    if (estaExcluidoDe2026(persona)) {
+      alert('No tienes permiso para descargar este certificado.');
+      return;
+    }
+
     // jsPDF v3 no carga URLs directamente: precargar imágenes como base64
     const toBase64 = (url) =>
       fetch(url)
@@ -359,7 +377,7 @@ export default function ResultadosPruebaTTHH() {
 
       docFinal.setFontSize(15);
       docFinal.setTextColor("#000000");
-      docFinal.text("Fecha: Agosto 2025", W / 2 + 105, 155, { align: "center" });
+      docFinal.text("Fecha: JULIO 2025", W / 2 + 105, 155, { align: "center" });
       docFinal.text("Duración: 40 horas", W / 2 - 35, 155, { align: "center" });
 
       docFinal.setDrawColor(line);
