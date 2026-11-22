@@ -135,6 +135,25 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     );
   };
 
+  // ── Personas con fecha de inicio específica ──────────────────
+  const personasConFechaEspecifica = [
+    { nombre: 'Condor Chaguamate Byron Gonzalo', cedula: '1719316182' },
+    { nombre: 'Huertas Arroyo Juan Carlos', cedula: '1725055832' },
+    { nombre: 'Cuello Quiguango Luis Santiago', cedula: '1719739631' }
+  ];
+
+  const obtenerFechaInicio = (registro) => {
+    const tieneFecharEspecifica = personasConFechaEspecifica.some(p =>
+      p.cedula === registro.cedula_identidad ||
+      p.nombre.toLowerCase() === registro.usuario_nombre.toLowerCase()
+    );
+    
+    if (tieneFecharEspecifica) {
+      return '22/07/2025';
+    }
+    return '26/10/2026';
+  };
+
   // ── Exportar a PDF 2025 ──────────────────────────────────────────
   const exportarPDF2025 = async () => {
     if (!pdfActivo) return;
@@ -848,7 +867,7 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
                     <td>{r.usuario_cargo}</td>
                     <td className="text-muted">{r.cedula_identidad}</td>
                     <td>{r.curso_nombre}</td>
-                    <td className="asistencia-fecha">{formatearFecha(r.inicio_en)}</td>
+                    <td className="asistencia-fecha">{obtenerFechaInicio(r)}</td>
                     <td><span className={`asistencia-badge ${cls}`}>{label}</span></td>
                   </tr>
                 );

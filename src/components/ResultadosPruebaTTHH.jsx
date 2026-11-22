@@ -95,6 +95,19 @@ export default function ResultadosPruebaTTHH() {
     );
   };
 
+  // ── Personas excluidas del certificado 2025 ────────────────────
+  const personasExcluidas2025 = [
+    { nombre: 'Jiménez Jiménez Danny Jefferson', cedula: '1726055450' },
+    { nombre: 'Escobar Quinga Cesar Anibal', cedula: '1711757292' }
+  ];
+
+  const estaExcluido2025 = (persona) => {
+    return personasExcluidas2025.some(p =>
+      p.cedula === persona.cedula ||
+      p.nombre.toLowerCase() === persona.nombre_completo.toLowerCase()
+    );
+  };
+
   // GENERAR CERTIFICADO PDF individual (función reutilizable con fecha personalizada)
   const generarCertificadoConFecha = async (persona, fecha = "Octubre 2026") => {
     // Validar si el usuario está excluido del certificado 2026
@@ -297,7 +310,7 @@ export default function ResultadosPruebaTTHH() {
 
   // DESCARGAR TODOS LOS CERTIFICADOS CON FECHA OCTUBRE 2025 EN UN SOLO PDF
   const descargarTodosCertificados2025 = async () => {
-    const aprobados = datos.filter((r) => r.aprobado);
+    const aprobados = datos.filter((r) => r.aprobado && !estaExcluido2025(r));
     if (aprobados.length === 0) {
       alert("No hay certificados para descargar");
       return;
@@ -483,7 +496,6 @@ export default function ResultadosPruebaTTHH() {
                 <th>Mejor Puntaje</th>
                 <th>Intentos</th>
                 <th>Estado</th>
-                <th>Fecha</th>
                 {/*<th>Certificado</th>*/}
               </tr>
             </thead>
@@ -511,11 +523,13 @@ export default function ResultadosPruebaTTHH() {
                       </span>
                     )}
                   </td>
+                  {/*
                   <td>
                     {r.ultima_fecha
                       ? new Date(r.ultima_fecha).toLocaleDateString("es-EC")
                       : "-"}
                   </td>
+                  */}
                   {/*<td>
                     {r.aprobado ? (
                       <button
