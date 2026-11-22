@@ -209,7 +209,7 @@ export default function ResultadosPruebaTTHH() {
 
   // DESCARGAR TODOS LOS CERTIFICADOS EN UN SOLO PDF
   const descargarTodosCertificados = async () => {
-    const aprobados = datos.filter((r) => r.aprobado);
+    const aprobados = datos.filter((r) => r.aprobado && !estaExcluidoDe2026(r));
     if (aprobados.length === 0) {
       alert("No hay certificados para descargar");
       return;
