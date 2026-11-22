@@ -44,7 +44,7 @@ export default function AdminProcesoHome() {
     }
   }, [navigate]);
 
-  const esTalentoHumano = adminUser?.proceso_name?.trim().toUpperCase() === 'ADMINISTRADOR';
+  const esTalentoHumano = ['ADMINISTRADOR', 'ADMINISTRADOR 2'].includes(adminUser?.proceso_name?.trim().toUpperCase());
 
   // Cargar cursos pendientes + polling cada 30s (solo para TALENTO HUMANO)
   useEffect(() => {
