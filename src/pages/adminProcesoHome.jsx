@@ -23,6 +23,7 @@ export default function AdminProcesoHome() {
   const token = localStorage.getItem("admin_token");
   const [adminUser, setAdminUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [_cursosPendientes, setCursosPendientes] = useState(0);
   
   const [activeTab, setActiveTab] = useState('inicio');
 
@@ -44,7 +45,7 @@ export default function AdminProcesoHome() {
     }
   }, [navigate]);
 
-  const esTalentoHumano = ['ADMINISTRADOR', 'ADMINISTRADOR 2'].includes(adminUser?.proceso_name?.trim().toUpperCase());
+  const esTalentoHumano = ['ADMINISTRADOR', 'TTHH ADMIN'].includes(adminUser?.proceso_name?.trim().toUpperCase());
 
   // Cargar cursos pendientes + polling cada 30s (solo para TALENTO HUMANO)
   useEffect(() => {

@@ -122,6 +122,19 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
   // ── PDF solo activo cuando hay curso seleccionado + estado completado ────
   const pdfActivo = filtroCurso !== '' && filtroEstado === 'completado';
 
+  // ── Personas excluidas del PDF 2025 ───────────────────────────
+  const personasExcluidas2025 = [
+    { nombre: 'Jiménez Jiménez Danny Jefferson', cedula: '1726055450' },
+    { nombre: 'Escobar Quinga Cesar Anibal', cedula: '1711757292'}
+  ];
+
+  const estaExcluido2025 = (registro) => {
+    return personasExcluidas2025.some(p => 
+      p.cedula === registro.cedula_identidad || 
+      p.nombre.toLowerCase() === registro.usuario_nombre.toLowerCase()
+    );
+  };
+
   // ── Exportar a PDF 2025 ──────────────────────────────────────────
   const exportarPDF2025 = async () => {
     if (!pdfActivo) return;
@@ -293,7 +306,8 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
 
     // ── Tabla de asistencia ────────────────────────────────────
     const headers = ['N°', 'APELLIDOS Y NOMBRES', 'CÉDULA', 'CARGO', 'ESTADO / FIRMA'];
-    const rows = registrosFiltrados.map((r, idx) => [
+    const registrosFiltradosPDF2025 = registrosFiltrados.filter(r => !estaExcluido2025(r));
+    const rows = registrosFiltradosPDF2025.map((r, idx) => [
       idx + 1,
       r.usuario_nombre,
       r.cedula_identidad || '—',
@@ -403,6 +417,7 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     const nombreArchivo = `asistencia_2025_${nombreCurso.replace(/\s+/g, '_')}.pdf`;
     doc.save(nombreArchivo);
   };
+
 
   // ── Personas excluidas del PDF 2026 ───────────────────────────
   const personasExcluidas2026 = [
