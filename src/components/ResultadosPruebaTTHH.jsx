@@ -82,7 +82,10 @@ export default function ResultadosPruebaTTHH() {
 
   // ── Personas excluidas del certificado 2026 ────────────────────
   const personasExcluidas2026 = [
-    { nombre: 'Tituaña Yacelga Byron Alejandro', cedula: '1724487754' }
+    { nombre: 'Tituaña Yacelga Byron Alejandro', cedula: '1724487754' },
+    { nombre: 'Condor Chaguamate Byron Gonzalo', cedula: '1719316182'},
+    { nombre: 'Huertas Arroyo Juan Carlos', cedula: '1725055832'},
+    { nombre: 'Cuello Quiguango Luis Santiago', cedula: '1719739631' }
   ];
 
   const estaExcluidoDe2026 = (persona) => {
