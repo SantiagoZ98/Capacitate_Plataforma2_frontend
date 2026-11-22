@@ -149,9 +149,9 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     );
     
     if (tieneFecharEspecifica) {
-      return '22/07/2025';
+      return '25/07/2025';
     }
-    return '26/10/2026';
+    return '28/10/2026';
   };
 
   // ── Exportar a PDF 2025 ──────────────────────────────────────────
