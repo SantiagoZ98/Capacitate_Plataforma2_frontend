@@ -85,7 +85,6 @@ export default function ResultadosPruebaTTHH() {
     { nombre: 'Tituaña Yacelga Byron Alejandro', cedula: '1724487754' },
     { nombre: 'Condor Chaguamate Byron Gonzalo', cedula: '1719316182'},
     { nombre: 'Huertas Arroyo Juan Carlos', cedula: '1725055832'},
-    { nombre: 'Cuello Quiguango Luis Santiago', cedula: '1719739631' }
   ];
 
   const estaExcluidoDe2026 = (persona) => {
@@ -393,7 +392,7 @@ export default function ResultadosPruebaTTHH() {
 
       docFinal.setFontSize(15);
       docFinal.setTextColor("#000000");
-      docFinal.text("Fecha: JULIO 2025", W / 2 + 105, 155, { align: "center" });
+      docFinal.text("Fecha: ABRIL 2025", W / 2 + 105, 155, { align: "center" });
       docFinal.text("Duración: 40 horas", W / 2 - 35, 155, { align: "center" });
 
       docFinal.setDrawColor(line);

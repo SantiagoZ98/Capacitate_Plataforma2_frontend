@@ -139,7 +139,6 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
   const personasConFechaEspecifica = [
     { nombre: 'Condor Chaguamate Byron Gonzalo', cedula: '1719316182' },
     { nombre: 'Huertas Arroyo Juan Carlos', cedula: '1725055832' },
-    { nombre: 'Cuello Quiguango Luis Santiago', cedula: '1719739631' }
   ];
 
   const obtenerFechaInicio = (registro) => {
@@ -149,7 +148,7 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     );
     
     if (tieneFecharEspecifica) {
-      return '25/07/2025';
+      return '30/04/2025';
     }
     return '28/10/2026';
   };
@@ -200,7 +199,7 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     
 
     // FECHA FIJA 2025
-    const fechaInicioCurso = '25/07/2025';
+    const fechaInicioCurso = '30/04/2025';
 
     const doc   = new jsPDF('portrait', 'mm', 'a4');
     const pageW = doc.internal.pageSize.getWidth();   // 210mm
@@ -443,7 +442,6 @@ export default function AsistenciaPanel({ asistenciaUrl = '/api/inscripciones/as
     { nombre: 'Tituaña Yacelga Byron Alejandro', cedula: '1724487754' },
     { nombre: 'Condor Chaguamate Byron Gonzalo', cedula: '1719316182'},
     { nombre: 'Huertas Arroyo Juan Carlos', cedula: '1725055832'},
-    { nombre: 'Cuello Quiguango Luis Santiago', cedula: '1719739631' }
   ];
 
   const estaExcluido = (registro) => {
