@@ -107,9 +107,6 @@ export default function Navbar() {
               <span className="navbar-title d-none d-md-inline">
                 Capacitaciones Online - Plataforma Virtual
               </span>
-              <span className="navbar-title-mobile d-md-none">
-                DHISVE
-              </span>
               <div className="navbar-subtitle d-none d-lg-block">
                 Capacitador
               </div>
