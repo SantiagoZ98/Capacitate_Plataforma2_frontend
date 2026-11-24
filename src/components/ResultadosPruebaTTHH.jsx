@@ -122,6 +122,19 @@ export default function ResultadosPruebaTTHH() {
       console.warn('No se pudo cargar el logo:', e);
     }
 
+    let firmaDataUrl = null;
+    try {
+      const resp = await fetch('/img/firma.png');
+      const blob = await resp.blob();
+      firmaDataUrl = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.warn('No se pudo cargar la firma:', e);
+    }
+
     const datosPDF = datos.filter((r) => r.aprobado && !estaExcluido2025(r));
 
     if (datosPDF.length === 0) {
@@ -294,6 +307,10 @@ export default function ResultadosPruebaTTHH() {
     const nombreProceso = 'Gerencia';
     dibujarCuadro(x2, yCuadros, ancho2, cuadroAlto, nombreProceso, 'PROCESO RESPONSABLE');
     dibujarCuadro(x3, yCuadros, ancho3, cuadroAlto, '', 'GERENTE ADMINISTRATIVA');
+    
+    if (firmaDataUrl) {
+      doc.addImage(firmaDataUrl, 'PNG', x3 + ((ancho3 - 35) / 2), yCuadros - 2, 35, 15);
+    }
 
     doc.save(`Resultados_Prueba_2025.pdf`);
   };
@@ -311,6 +328,19 @@ export default function ResultadosPruebaTTHH() {
       });
     } catch (e) {
       console.warn('No se pudo cargar el logo:', e);
+    }
+
+    let firmaDataUrl = null;
+    try {
+      const resp = await fetch('/img/firma.png');
+      const blob = await resp.blob();
+      firmaDataUrl = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.warn('No se pudo cargar la firma:', e);
     }
 
     const datosPDF = datos.filter((r) => r.aprobado && !estaExcluidoDe2026(r));
@@ -485,6 +515,10 @@ export default function ResultadosPruebaTTHH() {
     const nombreProceso = 'Gerencia';
     dibujarCuadro(x2, yCuadros, ancho2, cuadroAlto, nombreProceso, 'PROCESO RESPONSABLE');
     dibujarCuadro(x3, yCuadros, ancho3, cuadroAlto, '', 'GERENTE ADMINISTRATIVA');
+    
+    if (firmaDataUrl) {
+      doc.addImage(firmaDataUrl, 'PNG', x3 + ((ancho3 - 35) / 2), yCuadros - 2, 35, 15);
+    }
 
     doc.save(`Resultados_Prueba_2026.pdf`);
   };
