@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
-import { jsPDF } from "jspdf";
+import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import '../styles/components/resultadosPruebaTTHH.css';
-
-// Initialize autoTable plugin for jsPDF
-autoTable(jsPDF);
 
 export default function ResultadosPruebaTTHH() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -220,7 +217,7 @@ export default function ResultadosPruebaTTHH() {
       r.total_intentos,
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       head: [headers],
       body: rows,
       startY: y,
@@ -363,7 +360,7 @@ export default function ResultadosPruebaTTHH() {
       r.total_intentos,
     ]);
 
-    doc.autoTable({
+    autoTable(doc, {
       head: [headers],
       body: rows,
       startY: y,
