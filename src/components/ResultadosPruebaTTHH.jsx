@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 import '../styles/components/resultadosPruebaTTHH.css';
+
+// Initialize autoTable plugin for jsPDF
+autoTable(jsPDF);
 
 export default function ResultadosPruebaTTHH() {
   const API_URL = import.meta.env.VITE_API_URL;
