@@ -247,6 +247,54 @@ export default function ResultadosPruebaTTHH() {
       },
     });
 
+    // Pie de página con firmas
+    const finalY = doc.lastAutoTable.finalY + 10;
+    const espacioDisponible = pageH - finalY - 15;
+
+    const ancho1 = 60;
+    const ancho2 = 60;
+    const ancho3 = useW - ancho1 - ancho2;
+    const cuadroAlto = 25;
+    const espacioEntreCuadros = 0;
+    const alturaTotalCuadros = cuadroAlto + 8;
+
+    let yCuadros;
+
+    if (espacioDisponible > alturaTotalCuadros) {
+      yCuadros = pageH - cuadroAlto - 15;
+    } else {
+      yCuadros = pageH - cuadroAlto - 15;
+    }
+
+    const x1 = mL;
+    const x2 = x1 + ancho1 + espacioEntreCuadros;
+    const x3 = x2 + ancho2 + espacioEntreCuadros;
+
+    const dibujarCuadro = (x, y, w, h, textoSuperior, textoInferior = '') => {
+      doc.setDrawColor(...BORDE);
+      doc.setLineWidth(0.3);
+      doc.rect(x, y - 3, w, h, 'S');
+
+      doc.setFontSize(9);
+      doc.setTextColor(...TEXTO_OSCURO);
+      doc.setFont('helvetica', 'normal');
+      const lineasSuperior = doc.splitTextToSize(textoSuperior, w - 6);
+      doc.text(lineasSuperior, x + (w / 2), y + 7, { align: 'center' });
+
+      if (textoInferior) {
+        doc.setFontSize(9);
+        doc.setTextColor(...TEXTO_OSCURO);
+        doc.setFont('helvetica', 'bold');
+        const lineasInferior = doc.splitTextToSize(textoInferior, w - 6);
+        doc.text(lineasInferior, x + (w / 2), y + 18, { align: 'center' });
+      }
+    };
+
+    dibujarCuadro(x1, yCuadros, ancho1, cuadroAlto, 'PLATAFORMA VIRTUAL', '');
+    const nombreProceso = 'Gerencia';
+    dibujarCuadro(x2, yCuadros, ancho2, cuadroAlto, nombreProceso, 'PROCESO RESPONSABLE');
+    dibujarCuadro(x3, yCuadros, ancho3, cuadroAlto, '', 'GERENTE ADMINISTRATIVA');
+
     doc.save(`Resultados_Prueba_2025.pdf`);
   };
 
@@ -389,6 +437,54 @@ export default function ResultadosPruebaTTHH() {
         5: { cellWidth: 20, halign: 'center' },
       },
     });
+
+    // Pie de página con firmas
+    const finalY = doc.lastAutoTable.finalY + 10;
+    const espacioDisponible = pageH - finalY - 15;
+
+    const ancho1 = 60;
+    const ancho2 = 60;
+    const ancho3 = useW - ancho1 - ancho2;
+    const cuadroAlto = 25;
+    const espacioEntreCuadros = 0;
+    const alturaTotalCuadros = cuadroAlto + 8;
+
+    let yCuadros;
+
+    if (espacioDisponible > alturaTotalCuadros) {
+      yCuadros = pageH - cuadroAlto - 15;
+    } else {
+      yCuadros = pageH - cuadroAlto - 15;
+    }
+
+    const x1 = mL;
+    const x2 = x1 + ancho1 + espacioEntreCuadros;
+    const x3 = x2 + ancho2 + espacioEntreCuadros;
+
+    const dibujarCuadro = (x, y, w, h, textoSuperior, textoInferior = '') => {
+      doc.setDrawColor(...BORDE);
+      doc.setLineWidth(0.3);
+      doc.rect(x, y - 3, w, h, 'S');
+
+      doc.setFontSize(9);
+      doc.setTextColor(...TEXTO_OSCURO);
+      doc.setFont('helvetica', 'normal');
+      const lineasSuperior = doc.splitTextToSize(textoSuperior, w - 6);
+      doc.text(lineasSuperior, x + (w / 2), y + 7, { align: 'center' });
+
+      if (textoInferior) {
+        doc.setFontSize(9);
+        doc.setTextColor(...TEXTO_OSCURO);
+        doc.setFont('helvetica', 'bold');
+        const lineasInferior = doc.splitTextToSize(textoInferior, w - 6);
+        doc.text(lineasInferior, x + (w / 2), y + 18, { align: 'center' });
+      }
+    };
+
+    dibujarCuadro(x1, yCuadros, ancho1, cuadroAlto, 'PLATAFORMA VIRTUAL', '');
+    const nombreProceso = 'Gerencia';
+    dibujarCuadro(x2, yCuadros, ancho2, cuadroAlto, nombreProceso, 'PROCESO RESPONSABLE');
+    dibujarCuadro(x3, yCuadros, ancho3, cuadroAlto, '', 'GERENTE ADMINISTRATIVA');
 
     doc.save(`Resultados_Prueba_2026.pdf`);
   };
