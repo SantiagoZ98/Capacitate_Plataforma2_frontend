@@ -107,6 +107,292 @@ export default function ResultadosPruebaTTHH() {
     );
   };
 
+  // ── GENERAR PDF DE RESULTADOS 2025 ──────────────────────────
+  const generarPDFResultados2025 = async () => {
+    let logoDataUrl = null;
+    try {
+      const resp = await fetch('/img/safemedic.png');
+      const blob = await resp.blob();
+      logoDataUrl = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.warn('No se pudo cargar el logo:', e);
+    }
+
+    const datosPDF = datos.filter((r) => r.aprobado && !estaExcluido2025(r));
+
+    if (datosPDF.length === 0) {
+      alert('No hay resultados aprobados para 2025');
+      return;
+    }
+
+    const doc = new jsPDF('portrait', 'mm', 'a4');
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const mL = 14;
+    const mR = 14;
+    const useW = pageW - mL - mR;
+
+    const FONDO_PRINCIPAL = [255, 255, 255];
+    const FONDO_SECUNDARIO = [255, 255, 255];
+    const BORDE = [0, 0, 0];
+    const TEXTO_OSCURO = [0, 0, 0];
+
+    const celda = (x, y, w, h, texto, negrita = false, fondo = null) => {
+      if (fondo) {
+        doc.setFillColor(...fondo);
+        doc.rect(x, y, w, h, 'F');
+      }
+      doc.setDrawColor(...BORDE);
+      doc.setLineWidth(0.3);
+      doc.rect(x, y, w, h, 'S');
+      doc.setFontSize(9);
+      doc.setTextColor(...TEXTO_OSCURO);
+      doc.setFont('helvetica', negrita ? 'bold' : 'normal');
+      const lineas = doc.splitTextToSize(texto, w - 4);
+      doc.text(lineas, x + 3, y + 6);
+    };
+
+    let y = mL;
+
+    const tituloH = 25;
+    doc.setFillColor(...FONDO_PRINCIPAL);
+    doc.rect(mL, y, useW, tituloH, 'F');
+    doc.setDrawColor(...BORDE);
+    doc.setLineWidth(0.3);
+    doc.rect(mL, y, useW, tituloH, 'S');
+
+    const fotoX = mL + 5;
+    const fotoY = y + 5;
+    const ancho = 60;
+    const alto = 55;
+
+    if (logoDataUrl) {
+      doc.addImage(logoDataUrl, 'PNG', fotoX, fotoY - 17, ancho, alto);
+    }
+
+    const tituloX = fotoX + ancho + 15;
+    const tituloW = useW - ancho - 80;
+    const tituloY = y;
+    const tituloAlto = alto;
+
+    doc.setDrawColor(...BORDE);
+    doc.setLineWidth(0.3);
+    doc.line(tituloX - 10, tituloY, tituloX - 10, tituloY + 25);
+
+    doc.setFontSize(9.5);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont('helvetica', 'bold');
+    doc.text('RESULTADOS DE LA PRUEBA DE LA CAPACITACIÓN', tituloX + (tituloW / 2) + 20, tituloY + (tituloAlto / 2) - 10, { align: 'center' });
+
+    y += tituloH;
+
+    const etqW = 35;
+    const rowH = 8;
+    const valW = useW - etqW;
+
+    const nombreCurso = 'Igualdad Laboral y No Discriminación';
+    const fechaReporte = '30/04/2025';
+
+    celda(mL, y, etqW, rowH, 'CAPACITACIÓN:', true, FONDO_SECUNDARIO);
+    celda(mL + etqW, y, valW, rowH, nombreCurso);
+    y += rowH;
+
+    celda(mL, y, etqW, rowH, 'FECHA:', true, FONDO_SECUNDARIO);
+    celda(mL + etqW, y, valW, rowH, fechaReporte);
+    y += rowH;
+
+    y += 2;
+
+    const headers = ['N°', 'NOMBRE', 'CÉDULA', 'CARGO', 'PUNTAJE', 'INTENTOS'];
+    const rows = datosPDF.map((r, idx) => [
+      idx + 1,
+      r.nombre_completo,
+      r.cedula || '—',
+      r.cargo || '—',
+      `${r.mejor_puntaje}%`,
+      r.total_intentos,
+    ]);
+
+    doc.autoTable({
+      head: [headers],
+      body: rows,
+      startY: y,
+      styles: {
+        fontSize: 8,
+        cellPadding: 2.5,
+        textColor: [0, 0, 0],
+        lineColor: [0, 0, 0],
+        lineWidth: 0.3
+      },
+      headStyles: {
+        fillColor: FONDO_PRINCIPAL,
+        textColor: [0, 0, 0],
+        lineColor: [0, 0, 0],
+        lineWidth: 0.3,
+        fontStyle: 'bold',
+        halign: 'center'
+      },
+      alternateRowStyles: { fillColor: FONDO_SECUNDARIO },
+      columnStyles: {
+        0: { cellWidth: 10, halign: 'center' },
+        1: { cellWidth: 70, halign: 'left' },
+        2: { cellWidth: 25, halign: 'center' },
+        3: { cellWidth: 35, halign: 'left' },
+        4: { cellWidth: 20, halign: 'center' },
+        5: { cellWidth: 20, halign: 'center' },
+      },
+    });
+
+    doc.save(`Resultados_Prueba_2025.pdf`);
+  };
+
+  // ── GENERAR PDF DE RESULTADOS 2026 ──────────────────────────
+  const generarPDFResultados2026 = async () => {
+    let logoDataUrl = null;
+    try {
+      const resp = await fetch('/img/safemedic.png');
+      const blob = await resp.blob();
+      logoDataUrl = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.warn('No se pudo cargar el logo:', e);
+    }
+
+    const datosPDF = datos.filter((r) => r.aprobado && !estaExcluidoDe2026(r));
+
+    if (datosPDF.length === 0) {
+      alert('No hay resultados aprobados para 2026');
+      return;
+    }
+
+    const doc = new jsPDF('portrait', 'mm', 'a4');
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const mL = 14;
+    const mR = 14;
+    const useW = pageW - mL - mR;
+
+    const FONDO_PRINCIPAL = [255, 255, 255];
+    const FONDO_SECUNDARIO = [255, 255, 255];
+    const BORDE = [0, 0, 0];
+    const TEXTO_OSCURO = [0, 0, 0];
+
+    const celda = (x, y, w, h, texto, negrita = false, fondo = null) => {
+      if (fondo) {
+        doc.setFillColor(...fondo);
+        doc.rect(x, y, w, h, 'F');
+      }
+      doc.setDrawColor(...BORDE);
+      doc.setLineWidth(0.3);
+      doc.rect(x, y, w, h, 'S');
+      doc.setFontSize(9);
+      doc.setTextColor(...TEXTO_OSCURO);
+      doc.setFont('helvetica', negrita ? 'bold' : 'normal');
+      const lineas = doc.splitTextToSize(texto, w - 4);
+      doc.text(lineas, x + 3, y + 6);
+    };
+
+    let y = mL;
+
+    const tituloH = 25;
+    doc.setFillColor(...FONDO_PRINCIPAL);
+    doc.rect(mL, y, useW, tituloH, 'F');
+    doc.setDrawColor(...BORDE);
+    doc.setLineWidth(0.3);
+    doc.rect(mL, y, useW, tituloH, 'S');
+
+    const fotoX = mL + 5;
+    const fotoY = y + 5;
+    const ancho = 60;
+    const alto = 55;
+
+    if (logoDataUrl) {
+      doc.addImage(logoDataUrl, 'PNG', fotoX, fotoY - 17, ancho, alto);
+    }
+
+    const tituloX = fotoX + ancho + 15;
+    const tituloW = useW - ancho - 80;
+    const tituloY = y;
+    const tituloAlto = alto;
+
+    doc.setDrawColor(...BORDE);
+    doc.setLineWidth(0.3);
+    doc.line(tituloX - 10, tituloY, tituloX - 10, tituloY + 25);
+
+    doc.setFontSize(9.5);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont('helvetica', 'bold');
+    doc.text('RESULTADOS DE LA PRUEBA DE LA CAPACITACIÓN', tituloX + (tituloW / 2) + 20, tituloY + (tituloAlto / 2) - 10, { align: 'center' });
+
+    y += tituloH;
+
+    const etqW = 35;
+    const rowH = 8;
+    const valW = useW - etqW;
+
+    const nombreCurso = 'Igualdad Laboral y No Discriminación';
+    const fechaReporte = '28/10/2026';
+
+    celda(mL, y, etqW, rowH, 'CAPACITACIÓN:', true, FONDO_SECUNDARIO);
+    celda(mL + etqW, y, valW, rowH, nombreCurso);
+    y += rowH;
+
+    celda(mL, y, etqW, rowH, 'FECHA:', true, FONDO_SECUNDARIO);
+    celda(mL + etqW, y, valW, rowH, fechaReporte);
+    y += rowH;
+
+    y += 2;
+
+    const headers = ['N°', 'NOMBRE', 'CÉDULA', 'CARGO', 'PUNTAJE', 'INTENTOS'];
+    const rows = datosPDF.map((r, idx) => [
+      idx + 1,
+      r.nombre_completo,
+      r.cedula || '—',
+      r.cargo || '—',
+      `${r.mejor_puntaje}%`,
+      r.total_intentos,
+    ]);
+
+    doc.autoTable({
+      head: [headers],
+      body: rows,
+      startY: y,
+      styles: {
+        fontSize: 8,
+        cellPadding: 2.5,
+        textColor: [0, 0, 0],
+        lineColor: [0, 0, 0],
+        lineWidth: 0.3
+      },
+      headStyles: {
+        fillColor: FONDO_PRINCIPAL,
+        textColor: [0, 0, 0],
+        lineColor: [0, 0, 0],
+        lineWidth: 0.3,
+        fontStyle: 'bold',
+        halign: 'center'
+      },
+      alternateRowStyles: { fillColor: FONDO_SECUNDARIO },
+      columnStyles: {
+        0: { cellWidth: 10, halign: 'center' },
+        1: { cellWidth: 70, halign: 'left' },
+        2: { cellWidth: 25, halign: 'center' },
+        3: { cellWidth: 35, halign: 'left' },
+        4: { cellWidth: 20, halign: 'center' },
+        5: { cellWidth: 20, halign: 'center' },
+      },
+    });
+
+    doc.save(`Resultados_Prueba_2026.pdf`);
+  };
+
   // GENERAR CERTIFICADO PDF individual (función reutilizable con fecha personalizada)
   const generarCertificadoConFecha = async (persona, fecha = "Octubre 2026") => {
     // Validar si el usuario está excluido del certificado 2026
@@ -432,6 +718,14 @@ export default function ResultadosPruebaTTHH() {
           <button className="btn btn-success btn-sm" onClick={exportarExcel}>
             <i className="bi bi-file-earmark-excel me-1"></i>
             Exportar Excel (aprobados)
+          </button>
+          <button className="btn btn-primary btn-sm" onClick={() => generarPDFResultados2025()}>
+            <i className="bi bi-file-earmark-pdf me-1"></i>
+            Resultados 2025
+          </button>
+          <button className="btn btn-primary btn-sm" onClick={() => generarPDFResultados2026()}>
+            <i className="bi bi-file-earmark-pdf me-1"></i>
+            Resultados 2026
           </button>
           <button className="btn-anio-2026" onClick={descargarTodosCertificados}>
             <i className="bi bi-file-earmark-pdf me-1"></i>
