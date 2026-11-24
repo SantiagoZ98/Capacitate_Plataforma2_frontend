@@ -218,6 +218,14 @@ export default function ResultadosPruebaTTHH() {
     celda(mL + etqW, y, valW, rowH, fechaReporte);
     y += rowH;
 
+    // Fila: DESCRIPCIÓN (altura variable)
+    const descripcionCurso = 'Capacitación sobre igualdad laboral y principios de no discriminación en el entorno laboral.';
+    const descLineas = doc.splitTextToSize(descripcionCurso, valW - 6);
+    const descH = Math.max(rowH, descLineas.length * 4.5 + 4);
+    celda(mL, y, etqW, descH, 'DETALLE:', true, FONDO_SECUNDARIO);
+    celda(mL + etqW, y, valW, descH, descripcionCurso);
+    y += descH + 2;
+
     y += 2;
 
     const headers = ['N°', 'NOMBRE', 'CÉDULA', 'CARGO', 'PUNTAJE', 'INTENTOS'];
@@ -425,6 +433,14 @@ export default function ResultadosPruebaTTHH() {
     celda(mL, y, etqW, rowH, 'FECHA:', true, FONDO_SECUNDARIO);
     celda(mL + etqW, y, valW, rowH, fechaReporte);
     y += rowH;
+
+    // Fila: DESCRIPCIÓN (altura variable)
+    const descripcionCurso = 'Capacitación sobre igualdad laboral y principios de no discriminación en el entorno laboral.';
+    const descLineas = doc.splitTextToSize(descripcionCurso, valW - 6);
+    const descH = Math.max(rowH, descLineas.length * 4.5 + 4);
+    celda(mL, y, etqW, descH, 'DETALLE:', true, FONDO_SECUNDARIO);
+    celda(mL + etqW, y, valW, descH, descripcionCurso);
+    y += descH + 2;
 
     y += 2;
 
